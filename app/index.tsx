@@ -1,6 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { StateProvider } from './prompts/state/StateProvider';
+import EditorExample from './prompts/components/editor/EditorExample';
+import Catalog from './prompts/components/catalog/Catalog';
 
 // Simple app component to show we're loaded
 const App = () => {
@@ -12,6 +14,8 @@ const App = () => {
         <hr className="my-4" />
         <p>If you're seeing this message, the basic app is working. Components will appear here.</p>
       </div>
+      <Catalog />
+      <EditorExample />
     </div>
   );
 };

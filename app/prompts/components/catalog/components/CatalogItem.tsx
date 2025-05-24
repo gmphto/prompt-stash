@@ -23,8 +23,8 @@ export function CatalogItem({ prompt, onSelect, onDelete, onDuplicate }: Catalog
         <h3>{prompt.title}</h3>
         <p>{prompt.content.substring(0, 100)}...</p>
         <div className="prompt-meta">
-          <span>{new Date(prompt.updatedAt).toLocaleDateString()}</span>
-          {!!prompt.tags.length && (
+          <span>{prompt.updatedAt ? new Date(prompt.updatedAt).toLocaleDateString() : 'No date'}</span>
+          {prompt.tags && prompt.tags.length > 0 && (
             <div className="tags">
               {prompt.tags.map(tag => (
                 <span key={tag} className="tag">{tag}</span>
