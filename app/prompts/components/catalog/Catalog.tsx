@@ -37,13 +37,15 @@ export default function Catalog() {
     <div className="prompt-list-container card border-light">
       {isLoading && <div className="loading-indicator">Refreshing...</div>}
 
-      <header className="prompt-list-header card-header" style={{ backgroundColor: '#fff', display: 'flex', justifyContent: 'space-between' }}>
+      <header className="prompt-list-header card-header" style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+
+
+        <div className='d-flex justify-content-between'>
+
         <CatalogSearch
           value={search}
           onChange={updateSearch}
         />
-
-        <div className='d-flex justify-content-between'>
 
           <CatalogSorter
             sortBy={sortBy}
@@ -51,7 +53,10 @@ export default function Catalog() {
             onSort={toggleSort}
           />
 
-          <CatalogTags
+        </div>
+
+        <div className='d-flex justify-content-between'>
+        <CatalogTags
             tags={allTags}
             selectedTags={selectedTags}
             onTagToggle={toggleTag}

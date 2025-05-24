@@ -14,8 +14,7 @@ const App = () => {
       padding: '20px',
       boxSizing: 'border-box'
     }}>
-      <h1 className='mb-6'>Stash</h1>
-      
+     
       <div style={{ 
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',

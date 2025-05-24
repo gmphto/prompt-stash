@@ -6,6 +6,8 @@
   <title>PromptStash</title>
   <!-- Bootstrap v4 CSS CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <!-- Font Awesome CSS CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     html, body, #root {
       height: 100%;
@@ -19,6 +21,19 @@
     .editor-container {
       height: 100%;
       min-height: 500px;
+    }
+    .tag {
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      padding: 0.25rem 0.75rem;
+      margin: 0.25rem 0.25rem 0 0;
+      font-size: 0.875rem;
+      display: inline-block;
+    }
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
     }
   </style>
 </head>

@@ -14,20 +14,33 @@ type CatalogSorterProps = z.infer<typeof CatalogSorterPropsSchema>;
 
 export function CatalogSorter({ sortBy, sortDir, onSort }: CatalogSorterProps) {
   return (
-    <div className="prompt-sort d-inline-flex align-items-center" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <label htmlFor="sort-select" className='mb-0 mr-2'>Sort by:</label>
+    <div className="d-flex align-items-center" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <label htmlFor="sort-select" className='mr-2 mb-0'>Sort by:</label>
       <select 
         id="sort-select"
         value={sortBy}
         onChange={(e) => onSort(e.target.value as SortOptionsType)}
         className="sort-dropdown form-control"
-        style={{ width: 'auto' }}
+        style={{
+
+          border: 'none',
+          borderBottom: '1px solid #ccc',
+          borderRadius: '0',
+          backgroundColor: 'transparent',
+          paddingLeft: '0',
+          paddingRight: '0',
+          width: 'auto',
+          display: 'inline-block',
+
+         }}
+
+
       >
         <option value="title">
-          Title {sortDir === 'asc' ? '↑' : '↓'}
+          Title {sortDir === 'asc' ? '(asc)' : '(desc)'}
         </option>
         <option value="updatedAt">
-          Last Updated {sortDir === 'asc' ? '↑' : '↓'}
+          Last Updated {sortDir === 'asc' ? '(asc)' : '(desc)'}
         </option>
       </select>
     </div>

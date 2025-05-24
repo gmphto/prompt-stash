@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import * as z from 'zod';
 
 // Define Zod schemas for component props
@@ -18,184 +18,55 @@ export function CatalogTags({
   onTagToggle,
   title = "Tags"
 }: CatalogTagsProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  
   if (!tags.length) return null;
   
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-  
-  // Count of selected tags
-  const selectedCount = selectedTags.length;
-  const totalCount = tags.length;
-  
   // Styles
-  const dropdownContainerStyle: React.CSSProperties = {
-    position: 'relative',
-    display: 'inline-block',
-    width: '200px',
-    marginBottom: '8px'
+  const cssStyle: React.CSSProperties = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '0.1rem',
+    margin: '0.1rem 0'
   };
   
-  const buttonStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    padding: '6px 12px',
-    fontSize: '14px',
-    backgroundColor: '#f9fafb',
-    border: '1px solid #e5e7eb',
-    borderRadius: '6px',
+  const tagStyle = (isSelected: boolean): React.CSSProperties => ({
+    border: `1px solid ${isSelected ? '#007bff' : '#ccc'}`,
+    borderRadius: '2px',
+    padding: '0.25rem 0.75rem',
+    margin: '0.25rem',
     cursor: 'pointer',
-    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
-    color: '#374151'
-  };
-  
-  const buttonTextStyle: React.CSSProperties = {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  };
-  
-  const countBadgeStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minWidth: '20px',
-    height: '20px',
-    padding: '0 4px',
-    fontSize: '12px',
-    fontWeight: 500,
-    color: 'white',
-    backgroundColor: '#3b82f6',
-    borderRadius: '10px',
-    marginLeft: '8px'
-  };
-  
-  const dropdownMenuStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: '100%',
-    left: 0,
-    width: '100%',
-    marginTop: '4px',
-    padding: '4px',
-    backgroundColor: 'white',
-    borderRadius: '6px',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-    zIndex: 10,
-    border: '1px solid #e5e7eb',
-    maxHeight: '200px',
-    overflowY: 'auto'
-  };
-  
-  const tagItemStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    padding: '6px 8px',
+    transition: '0.2s ease',
+    userSelect: 'none',
+    backgroundColor: isSelected ? '#007bff' : 'transparent',
+    color: isSelected ? '#fff' : 'inherit',
     fontSize: '14px',
-    border: 'none',
-    backgroundColor: 'transparent',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    textAlign: 'left'
-  };
-  
-  const checkboxStyle: React.CSSProperties = {
-    display: 'inline-block',
-    width: '16px',
-    height: '16px',
-    border: '1px solid #d1d5db',
-    borderRadius: '4px',
-    marginRight: '8px',
-    position: 'relative'
-  };
-  
-  const checkmarkStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: '1px',
-    left: '4px',
-    width: '8px',
-    height: '8px',
-    color: 'white'
-  };
-  
-  // Generate the button label
-  const getButtonLabel = () => {
-    if (selectedCount === 0) {
-      return title;
-    } else if (selectedCount === 1) {
-      return selectedTags[0];
-    } else {
-      return `${selectedCount} ${title} selected`;
-    }
-  };
+    display: 'inline-block'
+  });
   
   return (
-    <div ref={dropdownRef} style={dropdownContainerStyle}>
-      <button 
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        style={buttonStyle}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-      >
-        <span style={buttonTextStyle}>{getButtonLabel()}</span>
-        {selectedCount > 0 && (
-          <span style={countBadgeStyle}>{selectedCount}</span>
-        )}
-      </button>
-      
-      {isOpen && (
-        <div 
-          style={dropdownMenuStyle}
-          role="listbox"
-          aria-label={`${title} options`}
-        >
-          {tags.map(tag => {
-            const isSelected = selectedTags.includes(tag);
-            return (
-              <button
-                key={tag}
-                type="button"
-                role="option"
-                aria-selected={isSelected}
-                style={{
-                  ...tagItemStyle,
-                  backgroundColor: isSelected ? '#f3f4f6' : 'transparent'
-                }}
-                onClick={() => onTagToggle(tag)}
-              >
-                <span style={checkboxStyle}>
-                  {isSelected && (
-                    <span style={{
-                      ...checkboxStyle,
-                      backgroundColor: '#3b82f6',
-                      border: '1px solid #3b82f6'
-                    }}>
-                      <span style={checkmarkStyle} aria-hidden="true">✓</span>
-                    </span>
-                  )}
-                </span>
-                {tag}
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    <>
+      <div style={cssStyle}>
+        {tags.map(tag => {
+          const isSelected = selectedTags.includes(tag);
+          return (
+            <div
+              key={tag}
+              onClick={() => onTagToggle(tag)}
+              style={tagStyle(isSelected)}
+              role="button"
+              aria-pressed={isSelected}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  onTagToggle(tag);
+                  e.preventDefault();
+                }
+              }}
+            >
+              {tag}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 } 

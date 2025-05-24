@@ -17,7 +17,15 @@ export function CatalogSearch({ value, onChange }: CatalogSearchProps) {
       placeholder="Search prompts..."
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="prompt-search"
+      className="form-control line-input catalog-search"
+      style={{
+        border: 'none',
+        borderBottom: '2px solid #007bff', /* Bootstrap primary color */
+        borderRadius: '0',
+        boxShadow: 'none',
+        outline: 'none',
+        maxWidth: 300
+      }}
     />
   );
 } 

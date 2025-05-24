@@ -15,44 +15,57 @@ type CatalogItemProps = z.infer<typeof CatalogItemPropsSchema>;
 
 export function CatalogItem({ prompt, onSelect, onDelete, onDuplicate }: CatalogItemProps) {
   return (
-    <li className="prompt-item list-group-item">
+    <div className="card mb-3 shadow-sm w-100">
       <div 
-        className="prompt-content" 
+        className="card-body d-flex flex-column justify-content-between h-100"
         onClick={() => onSelect(prompt)}
       >
-        <h3>{prompt.title}</h3>
-        <p>{prompt.content.substring(0, 100)}...</p>
-        <div className="prompt-meta">
-          <span>{prompt.updatedAt ? new Date(prompt.updatedAt).toLocaleDateString() : 'No date'}</span>
+        <div>
+          <h5 className="card-title">{prompt.title}</h5>
+          <p className="card-text">{prompt.content.substring(0, 100)}...</p>
+          
+          {/* Date information */}
+          <p className="text-muted small mb-2">
+            <i className="far fa-calendar-alt mr-1"></i>
+            {prompt.updatedAt ? new Date(prompt.updatedAt).toLocaleDateString() : 'No date'}
+          </p>
+          
           {prompt.tags && prompt.tags.length > 0 && (
-            <div className="tags">
+            <div className="mb-2">
               {prompt.tags.map(tag => (
-                <span key={tag} className="tag">{tag}</span>
+                <span key={tag} className="tag">{'#' + tag}</span>
               ))}
             </div>
           )}
         </div>
+        
+        {(onDuplicate || onDelete) && (
+          <div className="card-actions mt-3">
+            {onDuplicate && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDuplicate(prompt.id);
+                }}
+                className="btn btn-outline-secondary btn-sm"
+              >
+                <i className="fa fa-copy mr-1"></i> Copy
+              </button>
+            )}
+            {onDelete && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(prompt.id);
+                }}
+                className="btn btn-outline-danger btn-sm"
+              >
+                <i className="fa fa-trash mr-1"></i> Delete
+              </button>
+            )}
+          </div>
+        )}
       </div>
-      {(onDuplicate || onDelete) && (
-        <div className="prompt-actions">
-          {onDuplicate && (
-            <button 
-              onClick={() => onDuplicate(prompt.id)}
-              className="copy-btn"
-            >
-              Copy
-            </button>
-          )}
-          {onDelete && (
-            <button 
-              onClick={() => onDelete(prompt.id)}
-              className="delete-btn"
-            >
-              Delete
-            </button>
-          )}
-        </div>
-      )}
-    </li>
+    </div>
   );
 } 

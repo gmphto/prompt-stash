@@ -14,7 +14,7 @@ function Search(data: Prompt[], search: z.infer<typeof SearchSchema>) {
                 (!search.search || 
                   p.title.toLowerCase().includes(search.search.toLowerCase()) ||
                   p.content.toLowerCase().includes(search.search.toLowerCase())) &&
-                (!search.selectedTags.length || search.selectedTags.every(t => p.tags.includes(t)))
+                (!search.selectedTags.length || search.selectedTags.every(t => p.tags?.includes(t)))
               );
         case 'title':
             return [...data].filter(prompt => prompt.title.toLowerCase().includes(search.search.toLowerCase()));
