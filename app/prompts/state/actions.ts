@@ -1,8 +1,8 @@
-// State and API Actions
+// Re-export action types
 import { PromptAction } from './state';
 import { EditorAction } from './editor';
 
-// Union of all action types
+// Combined Action Type
 export type AppAction = PromptAction | EditorAction;
 
 // Action names for easier reference

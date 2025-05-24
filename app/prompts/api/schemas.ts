@@ -1,14 +1,44 @@
-import * as z from 'zod';
+import { z } from 'zod';
 
-// Prompt schema definition
+// Define the prompt schema
 export const promptSchema = z.object({
   id: z.string(),
-  title: z.string().min(1, 'Title is required'),
-  content: z.string().min(1, 'Content is required'),
-  tags: z.array(z.string()),
-  createdAt: z.string(),
-  updatedAt: z.string()
+  title: z.string(),
+  content: z.string(),
+  description: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
+
+// Editor data type
+export type EditorData = {
+  content: string;
+  language: string;
+  theme: string;
+};
+
+// Mock prompts for development
+export const mockPrompts = [
+  {
+    id: '1',
+    title: 'Basic React Component',
+    content: 'function Component() {\n  return <div>Hello World</div>;\n}',
+    description: 'A simple React functional component',
+    tags: ['react', 'component'],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    title: 'API Request',
+    content: 'async function fetchData() {\n  const response = await fetch("/api/data");\n  return response.json();\n}',
+    description: 'Fetch data from an API endpoint',
+    tags: ['api', 'async'],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
 
 // Type derived from schema
 export type Prompt = z.infer<typeof promptSchema>;
@@ -26,9 +56,6 @@ export const createEditorSchema = (maxLen: number) =>
 export const createPromptEditorSchema = createEditorSchema;
 
 // Type derived from editor schema
-export type EditorData = z.infer<ReturnType<typeof createEditorSchema>>;
-
-// Maintain compatibility with existing code
 export type PromptEditorData = EditorData;
 
 // Add a type for the saveData function to include isSubmitted parameter

@@ -1,38 +1,16 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { StateProvider } from './prompts/state/StateProvider';
-import EditorExample from './prompts/components/editor/EditorExample';
-import Catalog from './prompts/components/catalog/Catalog';
 
-// Simple app component to demonstrate state sharing
+// Simple app component to show we're loaded
 const App = () => {
   return (
-    <div className="app-container" style={{ 
-      display: 'flex', 
-      flexDirection: 'column',
-      height: '100vh',
-      padding: '20px',
-      boxSizing: 'border-box'
-    }}>
-      <h1 className='mb-6'>Stash</h1>
-      
-      <div style={{ 
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '20px',
-        flex: 1,
-        overflow: 'hidden'
-      }}>
-        {/* Catalog component using the shared state */}
-        <div className='card border-lightgrey' >
-          <div className='card-header' style={{ backgroundColor: '#fff', fontWeight: '600' }}>Catalog</div>
-          <div className='card-body'>
-            <Catalog />
-          </div>
-        </div>
-        
-        {/* Editor component using the shared state */}
-            <EditorExample />
+    <div className="container mt-4">
+      <div className="jumbotron">
+        <h1 className="display-4">PromptStash</h1>
+        <p className="lead">Your prompt management tool is loading...</p>
+        <hr className="my-4" />
+        <p>If you're seeing this message, the basic app is working. Components will appear here.</p>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel public/index.html",
     "prebuild": "rm -rf dist",
-    "build": "parcel build public/index.html --public-url /",
+    "build": "parcel build public/index.html --public-url / --no-scope-hoist",
     "postbuild": "echo 'Build completed' && ls -la dist"
   },
   "keywords": [],
